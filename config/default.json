@@ -1,4 +1,4 @@
 {
-  "mongoURI" : "mongodb+srv://admin:admin@cluster0-9tglm.mongodb.net/",
+  "mongoURI": "mongodb+srv://admin:admin@cluster0-9tglm.mongodb.net/",
   "jwtSecret": "secret"
 }
