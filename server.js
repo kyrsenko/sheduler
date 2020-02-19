@@ -14,10 +14,10 @@ app.use(express.json({ extended: false }));
 
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/users', require('./routes/api/users'));
-// app.use('/api/instructors', require('./routes/api/instructors'));
-// app.use('/api/students', require('./routes/api/students'));
-// app.use('/api/groups', require('./routes/api/groups'));
-// app.use('/api/cars', require('./routes/api/cars'));
+app.use('/api/instructors', require('./routes/api/instructors'));
+app.use('/api/students', require('./routes/api/students'));
+app.use('/api/groups', require('./routes/api/groups'));
+app.use('/api/cars', require('./routes/api/cars'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
