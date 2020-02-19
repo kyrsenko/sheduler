@@ -5,17 +5,9 @@ const schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  group: {
-    type: Schema.Types.ObjectId,
-    ref: 'Group'
-  },
   car: {
     type: Schema.Types.ObjectId,
     ref: 'Car'
-  },
-  student: {
-    type: Schema.Types.ObjectId,
-    ref: 'Student'
   },
   fullName: {
     type: String,
