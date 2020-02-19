@@ -5,14 +5,6 @@ const schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  instructors: [
-    {
-      instructor: {
-        type: Schema.Types.ObjectId,
-        ref: 'Instructor'
-      }
-    }
-  ],
   brand: {
     type: String,
     required: true
