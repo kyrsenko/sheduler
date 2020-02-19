@@ -20,6 +20,12 @@ const schema = new Schema({
   dateOfBirth: {
     type: Date,
     required: true
+  },
+  process: {
+    theory: { type: Number},
+    indoor: { type: Number},
+    outdoor: { type: Number},
+    withTrailer: { type: Number}
   }
 });
 
