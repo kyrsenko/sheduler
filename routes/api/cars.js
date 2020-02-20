@@ -106,6 +106,10 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
+// @route    GET api/cars/:id
+// @desc     Delete car by ID
+// @access   Private
+
 router.delete('/:id', auth, async (req, res) => {
   try {
     const car = await Car.findOne({ user: req.user.id, _id: req.params.id });
