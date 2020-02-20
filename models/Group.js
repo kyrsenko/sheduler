@@ -3,54 +3,54 @@ const { Schema, model } = require('mongoose');
 const schema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   startDate: {
     type: Date,
-    required: true
+    required: true,
   },
   endDate: {
     type: Date,
-    required: true
+    required: true,
   },
   shedule: [
     {
       date: {
         type: Date,
-        required: true
+        required: true,
       },
       time: {
         type: String,
-        required: true
+        required: true,
       },
       instructor: {
         type: Schema.Types.ObjectId,
         ref: 'Instructor',
-        required: true
+        required: true,
       },
       student: {
         type: Schema.Types.ObjectId,
         ref: 'Student',
-        required: true
+        required: true,
       },
       lessonType: {
         type: String,
-        required: true
-      }
-    }
+        required: true,
+      },
+    },
   ],
   active: {
     type: Boolean,
-    required: true
+    required: true,
   },
   date: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-module.exports = model('shedule', schema);
+module.exports = model('Group', schema);
