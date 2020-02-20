@@ -94,7 +94,7 @@ router.get('/:id', auth, async (req, res) => {
   try {
     const car = await Car.findOne({ user: req.user.id, _id: req.params.id });
 
-    // Check for ObjectId format and post
+    // Check for ObjectId format and car
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !car) {
       return res.status(404).json({ msg: 'Car not found' });
     }
@@ -114,7 +114,7 @@ router.delete('/:id', auth, async (req, res) => {
   try {
     const car = await Car.findOne({ user: req.user.id, _id: req.params.id });
 
-    // Check for ObjectId format and post
+    // Check for ObjectId format and car
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !car) {
       return res.status(404).json({ msg: 'Car not found' });
     }
