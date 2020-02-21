@@ -8,7 +8,7 @@ const Car = require('../../models/Car');
 const Instructor = require('../../models/Instructor');
 
 // @route    POST api/instructors
-// @desc     Create/edit a instructorar
+// @desc     Create/edit a instructor
 // @access   Private
 
 router.post(
