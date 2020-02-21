@@ -48,7 +48,7 @@ router.post(
       );
 
       await car.save();
-      await res.json(car);
+      res.json(car);
     } catch (error) {
       console.error(error.message);
 

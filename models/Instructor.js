@@ -3,27 +3,32 @@ const { Schema, model } = require('mongoose');
 const schema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
   },
   car: {
     type: Schema.Types.ObjectId,
-    ref: 'Car'
+    ref: 'Car',
   },
   fullName: {
     type: String,
-    required: true
+    required: true,
+  },
+  passport: {
+    type: String,
+    required: true,
+    unique: true,
   },
   sertificateEndDate: {
     type: Date,
-    requred: true
+    requred: true,
   },
   categories: {
     type: [String],
-    required: true
+    required: true,
   },
   daysOff: {
-    type: [String]
-  }
+    type: [String],
+  },
 });
 
 module.exports = model('Instructor', schema);
