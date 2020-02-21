@@ -55,7 +55,7 @@ router.post(
       if (error.codeName === 'DuplicateKey') {
         return res
           .status(400)
-          .json({ errors: { msg: 'Duplicate license plate number' } });
+          .json({ errors: { msg: 'License plate number already used' } });
       }
 
       res.status(500).json('Server error');
@@ -64,7 +64,7 @@ router.post(
 );
 
 // @route    GET api/car
-// @desc     Get all users cars
+// @desc     Get all cars of current user
 // @access   Private
 
 router.get('/', auth, async (req, res) => {
