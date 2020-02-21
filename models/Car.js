@@ -3,29 +3,30 @@ const { Schema, model } = require('mongoose');
 const schema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
   },
   brand: {
     type: String,
-    required: true
+    required: true,
   },
   govNumber: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
   },
   techEndDate: {
     type: Date,
-    requred: true
+    required: true,
   },
   category: {
     type: String,
-    required: true
+    required: true,
   },
   active: {
     type: Boolean,
     default: true,
-    required: true
-  }
+    required: true,
+  },
 });
 
-module.exports = model('Instructor', schema);
+module.exports = model('Car', schema);
