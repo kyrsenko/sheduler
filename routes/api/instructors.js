@@ -8,7 +8,7 @@ const Car = require('../../models/Car');
 const Instructor = require('../../models/Instructor');
 
 // @route    POST api/instructors
-// @desc     Create/edit a instructor
+// @desc     Create instructor
 // @access   Private
 
 router.post(
@@ -34,11 +34,94 @@ router.post(
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
+    };
+
+    const {
+      fullName,
+      // car,
+      passport,
+      sertificateEndDate,
+      categories,
+      daysOff,
+    } = req.body;
+
+    const instructorFields = {};
+
+    if (fullName) {
+      instructorFields.fullName = fullName;
+    };
+    // if (car) {
+    //   instructorFields.car = car;
+    // };
+    if (passport) {
+      instructorFields.passport = passport;
+    };
+    if (sertificateEndDate) {
+      instructorFields.sertificateEndDate = sertificateEndDate;
+    };
+    if (categories) {
+      instructorFields.categories = categories
+        .split(',')
+        .map(item => item.trim());
+    };
+    if (daysOff) {
+      instructorFields.daysOff = daysOff.split(',').map(item => item.trim());
+    };
+
+    try {
+      let instructor = await Instructor.findOne({ 
+        user: req.user.id, 
+        passport: req.body.passport });
+
+      if(instructor){
+        return res.status(400).json({ msg: "Instructor already exists" })
+      };
+
+      instructor = new Instructor({
+        user: req.user.id,
+        ...instructorFields});
+
+      await instructor.save();
+      res.json(instructor);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).json('Server error');
+    }
+  }
+);
+
+// @route    PUT api/instructors/:id
+// @desc     Edit instructor
+// @access   Private
+
+router.put(
+  '/:id',
+  [
+    auth,
+    [
+      check('fullName', 'Name is required')
+        .not()
+        .isEmpty(),
+      check('sertificateEndDate', 'Sertificate end date is required')
+        .not()
+        .isEmpty(),
+      check('passport', 'Passport serial number is required')
+        .not()
+        .isEmpty(),
+      check('categories', 'Categories is required')
+        .not()
+        .isEmpty(),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
 
     const {
       fullName,
-      car,
+      // car,
       passport,
       sertificateEndDate,
       categories,
@@ -50,9 +133,9 @@ router.post(
     if (fullName) {
       instructorFields.fullName = fullName;
     }
-    if (car) {
-      instructorFields.car = car;
-    }
+    // if (car) {
+    //   instructorFields.car = car;
+    // }
     if (passport) {
       instructorFields.passport = passport;
     }
@@ -69,15 +152,22 @@ router.post(
     }
 
     try {
-      let instructor = await Instructor.findOneAndUpdate(
-        { user: req.user.id, passport: req.body.passport },
+       let instructor = await Instructor.findOne({ 
+        user: req.user.id, 
+        _id: req.params.id });
+
+        if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !instructor) {
+          return res.status(404).json({ msg: 'Instructor not found' });
+        };
+
+       instructor = await Instructor.findOneAndUpdate(
+        { user: req.user.id, _id: req.params.id },
         {
           $set: {
-            user: req.user.id,
             ...instructorFields,
           },
         },
-        { new: true, upsert: true }
+        { new: true }
       );
 
       await instructor.save();
@@ -85,10 +175,10 @@ router.post(
     } catch (error) {
       console.error(error.message);
 
-      if (error.codeName === 'DuplicateKey') {
+      if (error.kind === 'ObjectId') {
         return res
-          .status(400)
-          .json({ errors: { msg: 'Passport serial number already used' } });
+          .status(404)
+          .json({ errors: { msg: "Instructor not found" } });
       }
 
       res.status(500).json('Server error');
@@ -108,7 +198,7 @@ router.get('/', auth, async (req, res) => {
 
     if (!instructors.length) {
       return res
-        .status(400)
+        .status(404)
         .json({ errors: { msg: 'There are no instructors for this company' } });
     }
 
