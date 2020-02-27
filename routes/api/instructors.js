@@ -34,7 +34,7 @@ router.post(
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
-    };
+    }
 
     const {
       fullName,
@@ -49,37 +49,39 @@ router.post(
 
     if (fullName) {
       instructorFields.fullName = fullName;
-    };
+    }
     // if (car) {
     //   instructorFields.car = car;
     // };
     if (passport) {
       instructorFields.passport = passport;
-    };
+    }
     if (sertificateEndDate) {
       instructorFields.sertificateEndDate = sertificateEndDate;
-    };
+    }
     if (categories) {
       instructorFields.categories = categories
         .split(',')
         .map(item => item.trim());
-    };
+    }
     if (daysOff) {
       instructorFields.daysOff = daysOff.split(',').map(item => item.trim());
-    };
+    }
 
     try {
-      let instructor = await Instructor.findOne({ 
-        user: req.user.id, 
-        passport: req.body.passport });
+      let instructor = await Instructor.findOne({
+        user: req.user.id,
+        passport: req.body.passport,
+      });
 
-      if(instructor){
-        return res.status(400).json({ msg: "Instructor already exists" })
-      };
+      if (instructor) {
+        return res.status(400).json({ msg: 'Instructor already exists' });
+      }
 
       instructor = new Instructor({
         user: req.user.id,
-        ...instructorFields});
+        ...instructorFields,
+      });
 
       await instructor.save();
       res.json(instructor);
@@ -152,15 +154,16 @@ router.put(
     }
 
     try {
-       let instructor = await Instructor.findOne({ 
-        user: req.user.id, 
-        _id: req.params.id });
+      let instructor = await Instructor.findOne({
+        user: req.user.id,
+        _id: req.params.id,
+      });
 
-        if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !instructor) {
-          return res.status(404).json({ msg: 'Instructor not found' });
-        };
+      if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !instructor) {
+        return res.status(404).json({ msg: 'Instructor not found' });
+      }
 
-       instructor = await Instructor.findOneAndUpdate(
+      instructor = await Instructor.findOneAndUpdate(
         { user: req.user.id, _id: req.params.id },
         {
           $set: {
@@ -178,7 +181,7 @@ router.put(
       if (error.kind === 'ObjectId') {
         return res
           .status(404)
-          .json({ errors: { msg: "Instructor not found" } });
+          .json({ errors: { msg: 'Instructor not found' } });
       }
 
       res.status(500).json('Server error');
@@ -218,7 +221,7 @@ router.get('/:id', auth, async (req, res) => {
     const instructor = await Instructor.findOne({
       user: req.user.id,
       _id: req.params.id,
-    });
+    }).populate('user', ['name']);;
 
     // Check for ObjectId format and instructor
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !instructor) {

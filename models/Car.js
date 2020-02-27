@@ -27,6 +27,10 @@ const schema = new Schema({
     default: true,
     required: true,
   },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = model('Car', schema);

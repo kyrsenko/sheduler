@@ -18,6 +18,10 @@ const schema = new Schema({
     type: Date,
     required: true,
   },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = model('Student', schema);

@@ -89,7 +89,7 @@ router.post(
   }
 );
 
-// @route    POST api/cars
+// @route    PUT api/cars
 // @desc     Edit a car
 // @access   Private
 
@@ -199,7 +199,10 @@ router.get('/', auth, async (req, res) => {
 
 router.get('/:id', auth, async (req, res) => {
   try {
-    const car = await Car.findOne({ user: req.user.id, _id: req.params.id });
+    const car = await Car.findOne({
+      user: req.user.id,
+      _id: req.params.id,
+    }).populate('user', ['name']);
 
     // Check for ObjectId format and car
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !car) {
