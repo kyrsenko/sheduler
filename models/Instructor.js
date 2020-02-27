@@ -5,10 +5,6 @@ const schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  car: {
-    type: Schema.Types.ObjectId,
-    ref: 'Car',
-  },
   fullName: {
     type: String,
     required: true,
