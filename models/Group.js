@@ -31,6 +31,10 @@ const schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Instructor',
       },
+      car: {
+        type: Schema.Types.ObjectId,
+        ref: 'Car',
+      },
     },
   ],
   shedule: [
