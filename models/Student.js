@@ -5,14 +5,6 @@ const schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  group: {
-    type: Schema.Types.ObjectId,
-    ref: 'Group',
-  },
-  instructor: {
-    type: Schema.Types.ObjectId,
-    ref: 'Instructor',
-  },
   fullName: {
     type: String,
     required: true,
@@ -25,12 +17,6 @@ const schema = new Schema({
   dateOfBirth: {
     type: Date,
     required: true,
-  },
-  process: {
-    theory: { type: Number, default: 20 },
-    indoor: { type: Number, default: 15 },
-    outdoor: { type: Number, default: 10 },
-    withTrailer: { type: Number, default: 5 },
   },
 });
 
