@@ -7,7 +7,7 @@ const auth = require('../../middleware/auth');
 const Car = require('../../models/Car');
 
 // @route    POST api/cars
-// @desc     Create/edit a car
+// @desc     Create a car
 // @access   Private
 
 router.post(
@@ -27,6 +27,9 @@ router.post(
       check('category', 'Category is required')
         .not()
         .isEmpty(),
+      check('active', 'Status is required')
+        .not()
+        .isEmpty(),
     ],
   ],
   async (req, res) => {
@@ -35,17 +38,40 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
+    const { brand, govNumber, techEndDate, category, active } = req.body;
+
+    const carFields = {};
+
+    if (brand) {
+      carFields.brand = brand;
+    }
+
+    if (govNumber) {
+      carFields.govNumber = govNumber;
+    }
+    if (techEndDate) {
+      carFields.techEndDate = techEndDate;
+    }
+    if (category) {
+      carFields.category = category;
+    }
+
+    carFields.active = active;
+
     try {
-      let car = await Car.findOneAndUpdate(
-        { user: req.user.id, govNumber: req.body.govNumber },
-        {
-          $set: {
-            user: req.user.id,
-            ...req.body,
-          },
-        },
-        { new: true, upsert: true }
-      );
+      let car = await Car.findOne({
+        user: req.user.id,
+        govNumber: req.body.govNumber,
+      });
+
+      if (car) {
+        return res.status(400).json({ msg: 'Car already exists' });
+      }
+
+      car = new Car({
+        user: req.user.id,
+        ...carFields,
+      });
 
       await car.save();
       res.json(car);
@@ -58,6 +84,87 @@ router.post(
           .json({ errors: { msg: 'License plate number already used' } });
       }
 
+      res.status(500).json('Server error');
+    }
+  }
+);
+
+// @route    POST api/cars
+// @desc     Edit a car
+// @access   Private
+
+router.put(
+  '/:id',
+  [
+    auth,
+    [
+      check('brand', 'Brand is required')
+        .not()
+        .isEmpty(),
+      check('govNumber', 'License plate number is required')
+        .not()
+        .isEmpty(),
+      check('techEndDate', 'Inspection end date is required')
+        .not()
+        .isEmpty(),
+      check('category', 'Category is required')
+        .not()
+        .isEmpty(),
+      check('active', 'Status is required')
+        .not()
+        .isEmpty(),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { brand, govNumber, techEndDate, category, active } = req.body;
+
+    const carFields = {};
+
+    if (brand) {
+      carFields.brand = brand;
+    }
+
+    if (govNumber) {
+      carFields.govNumber = govNumber;
+    }
+    if (techEndDate) {
+      carFields.techEndDate = techEndDate;
+    }
+    if (category) {
+      carFields.category = category;
+    }
+
+    carFields.active = active;
+
+    try {
+      let car = await Car.findOne({
+        user: req.user.id,
+        _id: req.params.id,
+      });
+
+      if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !car) {
+        return res.status(404).json({ msg: 'Car not found' });
+      }
+
+      car = await Car.findOneAndUpdate(
+        { user: req.user.id, _id: req.params.id },
+        {
+          $set: {
+            ...carFields,
+          },
+        },
+        { new: true }
+      );
+
+      await car.save();
+      res.json(car);
+    } catch (error) {
+      console.error(error.message);
       res.status(500).json('Server error');
     }
   }
@@ -106,7 +213,7 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
-// @route    GET api/cars/:id
+// @route    DELETE api/cars/:id
 // @desc     Delete car by ID
 // @access   Private
 
