@@ -222,7 +222,7 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
-// @route    GET api/students/:id
+// @route    DELETE api/students/:id
 // @desc     Delete student by ID
 // @access   Private
 
