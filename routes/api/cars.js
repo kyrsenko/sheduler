@@ -89,7 +89,7 @@ router.post(
   }
 );
 
-// @route    POST api/cars
+// @route    PUT api/cars
 // @desc     Edit a car
 // @access   Private
 
