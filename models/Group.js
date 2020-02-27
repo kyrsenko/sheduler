@@ -17,6 +17,22 @@ const schema = new Schema({
     type: Date,
     required: true,
   },
+  students: [
+    {
+      student: {
+        type: Schema.Types.ObjectId,
+        ref: 'Student',
+      },
+    },
+  ],
+  instructors: [
+    {
+      instructor: {
+        type: Schema.Types.ObjectId,
+        ref: 'Instructor',
+      },
+    },
+  ],
   shedule: [
     {
       date: {
