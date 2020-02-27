@@ -109,9 +109,9 @@ router.put(
     if (endDate) {
       groupFields.endDate = endDate;
     }
-    if (active) {
+    
       groupFields.active = active;
-    }
+    
 
     try {
       let group = await Group.findOne({
@@ -227,59 +227,59 @@ router.delete('/:id', auth, async (req, res) => {
 // @desc     Get all students of group by ID
 // @access   Private
 
-router.get('/:group_id/students', auth, async (req, res) => {
-  try {
-    const students = await Student.find({
-      user: req.user.id,
-      group: req.params.group_id,
-    })
-      .populate('user', ['name'])
-      .populate('group', ['name'])
-      .populate('instructor', ['fullName']);
+// router.get('/:group_id/students', auth, async (req, res) => {
+//   try {
+//     const students = await Student.find({
+//       user: req.user.id,
+//       group: req.params.group_id,
+//     })
+//       .populate('user', ['name'])
+//       .populate('group', ['name'])
+//       .populate('instructor', ['fullName']);
 
-    if (!req.params.group_id.match(/^[0-9a-fA-F]{24}$/)) {
-      return res.status(404).json({ msg: 'Group not found' });
-    }
+//     if (!req.params.group_id.match(/^[0-9a-fA-F]{24}$/)) {
+//       return res.status(404).json({ msg: 'Group not found' });
+//     }
 
-    if (!students.length) {
-      return res
-        .status(404)
-        .json({ msg: 'There are no students in this group' });
-    }
+//     if (!students.length) {
+//       return res
+//         .status(404)
+//         .json({ msg: 'There are no students in this group' });
+//     }
 
-    res.json(students);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send('Server Error');
-  }
-});
+//     res.json(students);
+//   } catch (error) {
+//     console.error(error.message);
+//     res.status(500).send('Server Error');
+//   }
+// });
 
 // @route    GET api/groups/:group_id/instructors
 // @desc     Get all instructors of group by ID
 // @access   Private
 
-router.get('/:group_id/instructors', auth, async (req, res) => {
-  try {
-    const instructors = await Student.find({
-      user: req.user.id,
-      group: req.params.group_id,
-    }).populate('user', ['name']);
+// router.get('/:group_id/instructors', auth, async (req, res) => {
+//   try {
+//     const instructors = await Student.find({
+//       user: req.user.id,
+//       group: req.params.group_id,
+//     }).populate('user', ['name']);
 
-    if (!req.params.group_id.match(/^[0-9a-fA-F]{24}$/)) {
-      return res.status(404).json({ msg: 'Group not found' });
-    }
+//     if (!req.params.group_id.match(/^[0-9a-fA-F]{24}$/)) {
+//       return res.status(404).json({ msg: 'Group not found' });
+//     }
 
-    if (!instructors.length) {
-      return res
-        .status(404)
-        .json({ msg: 'There are no instructors in this group' });
-    }
+//     if (!instructors.length) {
+//       return res
+//         .status(404)
+//         .json({ msg: 'There are no instructors in this group' });
+//     }
 
-    res.json(instructors);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send('Server Error');
-  }
-});
+//     res.json(instructors);
+//   } catch (error) {
+//     console.error(error.message);
+//     res.status(500).send('Server Error');
+//   }
+// });
 
 module.exports = router;
