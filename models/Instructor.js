@@ -25,6 +25,10 @@ const schema = new Schema({
   daysOff: {
     type: [String],
   },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = model('Instructor', schema);

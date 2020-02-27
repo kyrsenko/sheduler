@@ -36,31 +36,27 @@ router.post(
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
-    };
+    }
 
-    const {
-      name,
-      startDate,
-      endDate,
-      active,
-    } = req.body;
+    const { name, startDate, endDate, active } = req.body;
 
-    
     try {
-      let group = await Group.findOne({ 
-        user: req.user.id, 
-        name: req.body.name });
+      let group = await Group.findOne({
+        user: req.user.id,
+        name: req.body.name,
+      });
 
-      if(group){
-        return res.status(400).json({ msg: "Group already exists" });
-      };
+      if (group) {
+        return res.status(400).json({ msg: 'Group already exists' });
+      }
 
       group = new Group({
         user: req.user.id,
         name,
         startDate,
         endDate,
-        active,});
+        active,
+      });
 
       await group.save();
       res.json(group);
@@ -79,7 +75,7 @@ router.put(
   '/:id',
   [
     auth,
-   [
+    [
       check('name', 'Name is required')
         .not()
         .isEmpty(),
@@ -98,40 +94,36 @@ router.put(
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
-    };
+    }
 
-    const {
-      name,
-      startDate,
-      endDate,
-      active,
-    } = req.body;
+    const { name, startDate, endDate, active } = req.body;
 
     const groupFields = {};
 
     if (name) {
       groupFields.name = name;
-    };
+    }
     if (startDate) {
       groupFields.startDate = startDate;
-    };
+    }
     if (endDate) {
       groupFields.endDate = endDate;
-    };
+    }
     if (active) {
       groupFields.active = active;
-    };
-    
+    }
+
     try {
-       let group = await Group.findOne({ 
-        user: req.user.id, 
-        _id: req.params.id });
+      let group = await Group.findOne({
+        user: req.user.id,
+        _id: req.params.id,
+      });
 
-        if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !group) {
-          return res.status(404).json({ msg: 'Group not found' });
-        };
+      if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !group) {
+        return res.status(404).json({ msg: 'Group not found' });
+      }
 
-       group = await Group.findOneAndUpdate(
+      group = await Group.findOneAndUpdate(
         { user: req.user.id, _id: req.params.id },
         {
           $set: {
@@ -147,7 +139,7 @@ router.put(
       console.error(error.message);
 
       if (error.kind === 'ObjectId') {
-         return res.status(404).json({ msg: 'Group not found' });
+        return res.status(404).json({ msg: 'Group not found' });
       }
 
       res.status(500).json('Server error');
@@ -161,11 +153,9 @@ router.put(
 
 router.get('/', auth, async (req, res) => {
   try {
-    const groups = await Group
-    .find({
+    const groups = await Group.find({
       user: req.user.id,
-    })
-    .populate('user', ['name'])
+    }).populate('user', ['name']);
 
     if (!groups.length) {
       return res
@@ -189,8 +179,7 @@ router.get('/:id', auth, async (req, res) => {
     const group = await Group.findOne({
       user: req.user.id,
       _id: req.params.id,
-    })
-    .populate('user', ['name'])
+    }).populate('user', ['name']);
 
     // Check for ObjectId format and group
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !group) {
@@ -202,7 +191,7 @@ router.get('/:id', auth, async (req, res) => {
     console.error(error.message);
     if (error.kind === 'ObjectId') {
       return res.status(404).json({ msg: 'Group not found' });
-      }
+    }
     res.status(500).send('Server Error');
   }
 });
@@ -227,9 +216,9 @@ router.delete('/:id', auth, async (req, res) => {
     res.json({ msg: 'Group removed' });
   } catch (error) {
     console.error(error.message);
-     if (error.kind === 'ObjectId') {
-         return res.status(404).json({ msg: 'Group not found' });
-      }
+    if (error.kind === 'ObjectId') {
+      return res.status(404).json({ msg: 'Group not found' });
+    }
     res.status(500).send('Server Error');
   }
 });
@@ -240,21 +229,22 @@ router.delete('/:id', auth, async (req, res) => {
 
 router.get('/:group_id/students', auth, async (req, res) => {
   try {
-    const students = await Student
-    .find({
+    const students = await Student.find({
       user: req.user.id,
-      group: req.params.group_id
+      group: req.params.group_id,
     })
-    .populate('user', ['name'])
-    .populate('group', ['name'])
-    .populate('instructor', ['fullName'])
+      .populate('user', ['name'])
+      .populate('group', ['name'])
+      .populate('instructor', ['fullName']);
 
     if (!req.params.group_id.match(/^[0-9a-fA-F]{24}$/)) {
       return res.status(404).json({ msg: 'Group not found' });
     }
 
-     if (!students.length) {
-      return res.status(404).json({ msg: 'There are no students in this group' });
+    if (!students.length) {
+      return res
+        .status(404)
+        .json({ msg: 'There are no students in this group' });
     }
 
     res.json(students);
@@ -270,19 +260,19 @@ router.get('/:group_id/students', auth, async (req, res) => {
 
 router.get('/:group_id/instructors', auth, async (req, res) => {
   try {
-    const instructors = await Student
-    .find({
+    const instructors = await Student.find({
       user: req.user.id,
-      group: req.params.group_id
-    })
-    .populate('user', ['name'])
+      group: req.params.group_id,
+    }).populate('user', ['name']);
 
     if (!req.params.group_id.match(/^[0-9a-fA-F]{24}$/)) {
       return res.status(404).json({ msg: 'Group not found' });
     }
 
-     if (!instructors.length) {
-      return res.status(404).json({ msg: 'There are no instructors in this group' });
+    if (!instructors.length) {
+      return res
+        .status(404)
+        .json({ msg: 'There are no instructors in this group' });
     }
 
     res.json(instructors);

@@ -176,9 +176,7 @@ router.get('/', auth, async (req, res) => {
   try {
     const students = await Student.find({
       user: req.user.id,
-    })
-      .populate('user', ['name'])
-      .populate('instructor', ['fullName']);
+    }).populate('user', ['name']);
 
     if (!students.length) {
       return res
@@ -202,10 +200,7 @@ router.get('/:id', auth, async (req, res) => {
     const student = await Student.findOne({
       user: req.user.id,
       _id: req.params.id,
-    })
-      .populate('user', ['name'])
-      .populate('instructor', ['fullName']);
-    //   .populate('group', ['name']);
+    }).populate('user', ['name']);
 
     // Check for ObjectId format and student
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !student) {

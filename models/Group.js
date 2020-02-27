@@ -25,44 +25,23 @@ const schema = new Schema({
       },
     },
   ],
-  instructors: [
+  cars: [
     {
-      instructor: {
-        type: Schema.Types.ObjectId,
-        ref: 'Instructor',
-      },
       car: {
         type: Schema.Types.ObjectId,
         ref: 'Car',
       },
     },
   ],
-  shedule: [
+  instructors: [
     {
-      date: {
-        type: Date,
-        required: true,
-      },
-      time: {
-        type: String,
-        required: true,
-      },
       instructor: {
         type: Schema.Types.ObjectId,
         ref: 'Instructor',
-        required: true,
-      },
-      student: {
-        type: Schema.Types.ObjectId,
-        ref: 'Student',
-        required: true,
-      },
-      lessonType: {
-        type: String,
-        required: true,
       },
     },
   ],
+  shedule: [],
   active: {
     type: Boolean,
     required: true,
