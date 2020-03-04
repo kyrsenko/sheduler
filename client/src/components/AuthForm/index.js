@@ -14,9 +14,10 @@ import { Notify } from '../../commons';
 import { useStyles } from './styles';
 
 export const AuthForm = ({
-  action,
-  path,
-  linkMessage,
+  action = null,
+  title,
+  linkTo,
+  linkText,
   companyName = false,
 }) => {
   const classes = useStyles();
@@ -36,7 +37,7 @@ export const AuthForm = ({
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {action}
+          {title}
         </Typography>
         <form
           className={classes.form}
@@ -109,12 +110,12 @@ export const AuthForm = ({
             color="primary"
             className={classes.submit}
           >
-            {action}
+            {title}
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <NavLink to={`/${path}`} className={classes.link}>
-                {linkMessage}
+              <NavLink to={`/${linkTo}`} className={classes.link}>
+                {linkText}
               </NavLink>
             </Grid>
           </Grid>
