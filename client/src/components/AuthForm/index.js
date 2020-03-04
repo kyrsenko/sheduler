@@ -13,7 +13,12 @@ import { Notify } from '../../commons';
 
 import { useStyles } from './styles';
 
-export const AuthForm = ({ action, path, linkMessage }) => {
+export const AuthForm = ({
+  action,
+  path,
+  linkMessage,
+  companyName = false,
+}) => {
   const classes = useStyles();
 
   const { register, errors, handleSubmit } = useForm();
@@ -39,6 +44,26 @@ export const AuthForm = ({ action, path, linkMessage }) => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <Grid container spacing={2}>
+            {companyName && (
+              <Grid item xs={12}>
+                <TextField
+                  inputRef={register({
+                    // eslint-disable-next-line
+                    required: true,
+                  })}
+                  variant="outlined"
+                  fullWidth
+                  id="name"
+                  name="name"
+                  type="text"
+                  label="Company name"
+                  error={!!errors.name}
+                />
+                {errors.name && (
+                  <Notify type="error" message="Company name is required" />
+                )}
+              </Grid>
+            )}
             <Grid item xs={12}>
               <TextField
                 inputRef={register({
