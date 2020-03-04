@@ -3,9 +3,9 @@ import { AuthForm } from '../../components';
 
 export const RegistrationPage = props => {
   const params = {
-    path: 'login',
-    action: 'Sign Up',
-    linkMessage: 'Already have an account? Sign in',
+    linkTo: 'login',
+    title: 'Sign Up',
+    linkText: 'Already have an account? Sign in',
     companyName: true,
   };
 
