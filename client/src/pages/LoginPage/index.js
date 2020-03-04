@@ -3,7 +3,7 @@ import { AuthForm } from '../../components';
 
 export const LoginPage = props => {
   const params = {
-    linkTo: 'register',
+    linkTo: 'registration',
     title: 'Sign In',
     linkText: "Don't have an account? Sign Up",
   };

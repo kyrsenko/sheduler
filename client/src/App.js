@@ -29,7 +29,7 @@ const App = () => (
       <Container>
         <Switch>
           <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegistrationPage} />
+          <Route path="/registration" component={RegistrationPage} />
         </Switch>
       </Container>
       <ToastContainer
