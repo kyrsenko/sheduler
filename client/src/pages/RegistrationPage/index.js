@@ -6,6 +6,7 @@ export const RegistrationPage = props => {
     path: 'login',
     action: 'Sign Up',
     linkMessage: 'Already have an account? Sign in',
+    companyName: true,
   };
 
   return <AuthForm {...params} />;
