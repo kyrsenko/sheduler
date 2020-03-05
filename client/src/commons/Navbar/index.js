@@ -33,7 +33,7 @@ export const Navbar = props => {
           <nav className={classes.nav}>
             <Link
               component={NavLink}
-              to="/students"
+              to="/groups"
               variant="button"
               color="textPrimary"
               href="#"
@@ -53,7 +53,7 @@ export const Navbar = props => {
             </Link>
             <Link
               component={NavLink}
-              to="/students"
+              to="/instructors"
               variant="button"
               color="textPrimary"
               href="#"
@@ -63,7 +63,7 @@ export const Navbar = props => {
             </Link>
             <Link
               component={NavLink}
-              to="/students"
+              to="/cars"
               variant="button"
               color="textPrimary"
               href="#"

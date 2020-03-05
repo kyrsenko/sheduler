@@ -17,7 +17,7 @@ import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from '@material-ui/styles';
 import { LoginPage, RegistrationPage } from './pages';
 import { Navbar } from './commons';
-import { StudentsPage } from './pages';
+import { StudentsPage, GroupsPage, InstructorsPage, CarsPage } from './pages';
 // eslint-disable-next-line
 const theme = createMuiTheme({
   palette: {
@@ -31,9 +31,12 @@ const App = () => (
       <Navbar />
       <Container>
         <Switch>
-          <Route path="/login" component={LoginPage} />
-          <Route path="/registration" component={RegistrationPage} />
-          <Route path="/students" component={StudentsPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/registration" component={RegistrationPage} />
+          <Route exact path="/students" component={StudentsPage} />
+          <Route exact path="/groups" component={GroupsPage} />
+          <Route exact path="/instructors" component={InstructorsPage} />
+          <Route exact path="/cars" component={CarsPage} />
         </Switch>
       </Container>
       <ToastContainer
