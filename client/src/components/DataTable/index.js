@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import { useHistory } from 'react-router-dom';
 
-export const DataTable = ({ columns, data, name, actions = {} }) => {
+export const DataTable = ({ columns, data, title, actions = {} }) => {
   const [state, setState] = useState({
     columns,
     data,
@@ -24,7 +24,7 @@ export const DataTable = ({ columns, data, name, actions = {} }) => {
         },
       ]}
       onRowClick={(evt, selectedRow) => history.push('/registration')}
-      title={name}
+      title={title}
       columns={state.columns}
       data={state.data}
       editable={{

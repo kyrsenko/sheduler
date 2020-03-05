@@ -11,7 +11,6 @@ export const StudentsPage = props => {
         title: 'Group',
         field: 'group',
         lookup: { 1: '1', 2: '2', 3: '3' },
-        
       },
     ],
     data: [
@@ -76,7 +75,7 @@ export const StudentsPage = props => {
         group: 2,
       },
     ],
-    name: 'Students',
+    title: 'Students',
   };
 
   return <DataTable {...params} />;
