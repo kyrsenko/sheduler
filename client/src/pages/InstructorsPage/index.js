@@ -6,75 +6,11 @@ export const InstructorsPage = props => {
     columns: [
       { title: 'Full name', field: 'fullName' },
       { title: 'Passport', field: 'passport' },
-      { title: 'Date of birth', field: 'dateOfBirth', type: 'string' },
-      {
-        title: 'Group',
-        field: 'group',
-        lookup: { 1: '1', 2: '2', 3: '3' },
-      },
+      { title: 'Sertificate end date', field: 'sertificateEndDate' },
+      { title: 'Categories', field: 'categories' },
+      { title: 'Days off', field: 'daysOff' },
     ],
-    data: [
-      {
-        fullName: 'Ivanov Sergii',
-        passport: 'СК234567',
-        dateOfBirth: '30.04.1960',
-        group: 1,
-      },
-      {
-        fullName: 'Ivanov Oleksandr',
-        passport: 'СК345678',
-        dateOfBirth: '20.02.1980',
-        group: 3,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-    ],
+    data: [],
     title: 'Instructors',
   };
 

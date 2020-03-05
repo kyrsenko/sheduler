@@ -4,77 +4,13 @@ import { DataTable } from '../../components';
 export const CarsPage = props => {
   const params = {
     columns: [
-      { title: 'Full name', field: 'fullName' },
-      { title: 'Passport', field: 'passport' },
-      { title: 'Date of birth', field: 'dateOfBirth', type: 'string' },
-      {
-        title: 'Group',
-        field: 'group',
-        lookup: { 1: '1', 2: '2', 3: '3' },
-      },
+      { title: 'Brand', field: 'brand' },
+      { title: 'Government number', field: 'govNumber' },
+      { title: 'Tech end date', field: 'techEndDate' },
+      { title: 'Category', field: 'category' },
+      { title: 'Active', field: 'active' },
     ],
-    data: [
-      {
-        fullName: 'Ivanov Sergii',
-        passport: 'СК234567',
-        dateOfBirth: '30.04.1960',
-        group: 1,
-      },
-      {
-        fullName: 'Ivanov Oleksandr',
-        passport: 'СК345678',
-        dateOfBirth: '20.02.1980',
-        group: 3,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-      {
-        fullName: 'Ivanov Ivan',
-        passport: 'СК123456',
-        dateOfBirth: '10.02.1970',
-        group: 2,
-      },
-    ],
+    data: [],
     title: 'Cars',
   };
 

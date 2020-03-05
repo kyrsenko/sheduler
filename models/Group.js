@@ -23,6 +23,24 @@ const schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Student',
       },
+      process: {
+        indoor: {
+          type: String,
+          default: 20,
+        },
+        outdoor: {
+          type: String,
+          default: 25,
+        },
+        withTrailer: {
+          type: String,
+          default: 10,
+        },
+        theory: {
+          type: String,
+          default: 40,
+        },
+      },
     },
   ],
   cars: [
