@@ -1,1 +1,2 @@
-export {AuthForm} from './AuthForm'
+export { AuthForm } from './AuthForm';
+export { DataTable } from './DataTable';
