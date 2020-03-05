@@ -15,9 +15,12 @@ export const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
   },
   toolbarTitle: {
-    flexGrow: 1,
+    // flexGrow: 1,
   },
   link: {
     margin: theme.spacing(1, 1.5),
+  },
+  nav: {
+    margin: 'auto',
   },
 }));

@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
 import { useForm } from 'react-hook-form';
 import { Notify } from '../../commons';
 
@@ -114,9 +115,14 @@ export const AuthForm = ({
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <NavLink to={`/${linkTo}`} className={classes.link}>
+              <Link
+                component={NavLink}
+                href="#"
+                to={`/${linkTo}`}
+                className={classes.link}
+              >
                 {linkText}
-              </NavLink>
+              </Link>
             </Grid>
           </Grid>
         </form>

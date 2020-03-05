@@ -30,8 +30,10 @@ export const Navbar = props => {
           >
             Company name
           </Typography>
-          <nav>
+          <nav className={classes.nav}>
             <Link
+              component={NavLink}
+              to="/login"
               variant="button"
               color="textPrimary"
               href="#"
@@ -39,15 +41,19 @@ export const Navbar = props => {
             >
               Groups
             </Link>
-            <NavLink
+            <Link
+              component={NavLink}
               variant="button"
               color="textPrimary"
-              to='/students'
+              href="#"
+              to="/students"
               className={classes.link}
             >
               Students
-            </NavLink>
+            </Link>
             <Link
+              component={NavLink}
+              to="/login"
               variant="button"
               color="textPrimary"
               href="#"
@@ -56,6 +62,8 @@ export const Navbar = props => {
               instructors
             </Link>
             <Link
+              component={NavLink}
+              to="/login"
               variant="button"
               color="textPrimary"
               href="#"
@@ -70,7 +78,7 @@ export const Navbar = props => {
             variant="outlined"
             className={classes.link}
           >
-            Login
+            Logout
           </Button>
         </Toolbar>
       </AppBar>
