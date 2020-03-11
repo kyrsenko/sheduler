@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
-
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-import { Container } from '@material-ui/core';
 import { ToastContainer } from 'react-toastify';
 import { Navbar, Preloader, Notify } from './commons';
 import { fetchAuthUser } from './pages/Auth/routines';
 import { setAuthToken } from './utils';
-import {Routes} from './routing/Routes';
+import { Routes } from './routing/Routes';
 
 const App = () => {
   useEffect(() => {
@@ -23,11 +21,9 @@ const App = () => {
         <Navbar />
         <Preloader />
         <Notify />
-        <Container>
-          <Switch>
-            <Route component={Routes} />
-          </Switch>
-        </Container>
+        <Switch>
+          <Route component={Routes} />
+        </Switch>
         <ToastContainer
           position="top-right"
           autoClose={5000}
