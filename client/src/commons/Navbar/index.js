@@ -1,7 +1,6 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useHistory, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -15,12 +14,16 @@ import { useStyles } from './styles';
 
 const mapStateToProps = state => ({
   isAuth: state.authReducer.isAuth,
+  user: state.authReducer.user,
 });
 
 export const Navbar = connect(mapStateToProps, { logoutUser })(
-  ({ logoutUser, isAuth }) => {
+  ({ logoutUser, isAuth, user }) => {
     const classes = useStyles();
     let history = useHistory();
+    useEffect(() => {
+      user ? (document.title = user.name) : (document.title = 'Company name');
+    }, [user]);
     return isAuth || localStorage.token ? (
       <>
         <CssBaseline />
@@ -37,7 +40,7 @@ export const Navbar = connect(mapStateToProps, { logoutUser })(
               noWrap
               className={classes.toolbarTitle}
             >
-              Company name
+              {user ? user.name : 'Company name'}
             </Typography>
             <nav className={classes.nav}>
               <Link
