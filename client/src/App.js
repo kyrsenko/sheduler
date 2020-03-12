@@ -5,13 +5,11 @@ import store from './store';
 import { ToastContainer } from 'react-toastify';
 import { Navbar, Preloader, Notify } from './commons';
 import { fetchAuthUser } from './pages/Auth/routines';
-import { setAuthToken } from './utils';
 import { Routes } from './routing/Routes';
 
 const App = () => {
   useEffect(() => {
     if (localStorage.token) {
-      setAuthToken(localStorage.token);
       store.dispatch(fetchAuthUser());
     }
   }, []);

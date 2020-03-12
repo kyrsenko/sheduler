@@ -21,83 +21,81 @@ export const Navbar = connect(mapStateToProps, { logoutUser })(
   ({ logoutUser, isAuth }) => {
     const classes = useStyles();
     let history = useHistory();
-    return (
-      isAuth && (
-        <>
-          <CssBaseline />
-          <AppBar
-            position="static"
-            color="default"
-            elevation={0}
-            className={classes.appBar}
-          >
-            <Toolbar className={classes.toolbar}>
-              <Typography
-                variant="h6"
-                color="inherit"
-                noWrap
-                className={classes.toolbarTitle}
-              >
-                Company name
-              </Typography>
-              <nav className={classes.nav}>
-                <Link
-                  component={NavLink}
-                  to="/groups"
-                  variant="button"
-                  color="textPrimary"
-                  href="#"
-                  className={classes.link}
-                >
-                  Groups
-                </Link>
-                <Link
-                  component={NavLink}
-                  variant="button"
-                  color="textPrimary"
-                  href="#"
-                  to="/students"
-                  className={classes.link}
-                >
-                  Students
-                </Link>
-                <Link
-                  component={NavLink}
-                  to="/instructors"
-                  variant="button"
-                  color="textPrimary"
-                  href="#"
-                  className={classes.link}
-                >
-                  instructors
-                </Link>
-                <Link
-                  component={NavLink}
-                  to="/cars"
-                  variant="button"
-                  color="textPrimary"
-                  href="#"
-                  className={classes.link}
-                >
-                  Cars
-                </Link>
-              </nav>
-              <Button
+    return isAuth || localStorage.token ? (
+      <>
+        <CssBaseline />
+        <AppBar
+          position="static"
+          color="default"
+          elevation={0}
+          className={classes.appBar}
+        >
+          <Toolbar className={classes.toolbar}>
+            <Typography
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.toolbarTitle}
+            >
+              Company name
+            </Typography>
+            <nav className={classes.nav}>
+              <Link
+                component={NavLink}
+                to="/groups"
+                variant="button"
+                color="textPrimary"
                 href="#"
-                color="primary"
-                variant="outlined"
                 className={classes.link}
-                onClick={() => {
-                  store.dispatch(logoutUser());
-                  history.push('/login');
-                }}
               >
-                Logout
-              </Button>
-            </Toolbar>
-          </AppBar>
-        </>
-      )
-    );
+                Groups
+              </Link>
+              <Link
+                component={NavLink}
+                variant="button"
+                color="textPrimary"
+                href="#"
+                to="/students"
+                className={classes.link}
+              >
+                Students
+              </Link>
+              <Link
+                component={NavLink}
+                to="/instructors"
+                variant="button"
+                color="textPrimary"
+                href="#"
+                className={classes.link}
+              >
+                instructors
+              </Link>
+              <Link
+                component={NavLink}
+                to="/cars"
+                variant="button"
+                color="textPrimary"
+                href="#"
+                className={classes.link}
+              >
+                Cars
+              </Link>
+            </nav>
+            <Button
+              href="#"
+              color="primary"
+              variant="outlined"
+              className={classes.link}
+              onClick={() => {
+                store.dispatch(logoutUser());
+                history.push('/login');
+              }}
+            >
+              Logout
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </>
+    ) : null;
   }
 );

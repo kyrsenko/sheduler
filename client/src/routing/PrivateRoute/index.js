@@ -12,7 +12,11 @@ export const PrivateRoute = connect(mapStateToProps)(
       <Route
         {...rest}
         render={props =>
-          isAuth ? <Component {...props} /> : <Redirect to="/login" />
+          isAuth || localStorage.token ? (
+            <Component {...props} />
+          ) : (
+            <Redirect to="/login" />
+          )
         }
       />
     );

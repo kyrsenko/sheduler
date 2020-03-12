@@ -12,7 +12,6 @@ const mapStateToProps = state => ({
 
 export const LoginPage = connect(mapStateToProps, { authUser })(props => {
   const { authUser, isAuth } = props;
-
   const params = {
     linkTo: 'registration',
     title: 'Sign In',
