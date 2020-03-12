@@ -3,7 +3,7 @@ import { DataTable } from '../../../components';
 import makeData from './makeData';
 
 export const StudentsPage = props => {
-  const data = React.useMemo(() => makeData(10000), []);
+  const data = React.useMemo(() => makeData(200), []);
 
   const params = {
     columns: [
