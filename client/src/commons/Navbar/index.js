@@ -34,14 +34,16 @@ export const Navbar = connect(mapStateToProps, { logoutUser })(
           className={classes.appBar}
         >
           <Toolbar className={classes.toolbar}>
-            <Typography
-              variant="h6"
+            <Link
+              component={NavLink}
+              to="/"
+              variant="h4"
               color="inherit"
               noWrap
               className={classes.toolbarTitle}
             >
               {user ? user.name : null}
-            </Typography>
+            </Link>
             <nav className={classes.nav}>
               <Link
                 component={NavLink}

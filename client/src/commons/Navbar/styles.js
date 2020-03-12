@@ -16,6 +16,12 @@ export const useStyles = makeStyles(theme => ({
   },
   toolbarTitle: {
     flexGrow: 1,
+    '&:hover': {
+      textDecoration: 'none',
+    },
+    '&:active': {
+      textDecoration: 'none',
+    },
   },
   link: {
     margin: theme.spacing(1, 1.5),
