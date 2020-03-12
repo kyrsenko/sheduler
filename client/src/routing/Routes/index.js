@@ -8,13 +8,14 @@ import {
   CarsPage,
   LoginPage,
   RegistrationPage,
+  HomePage,
 } from '../../pages';
 import { Details, Edit } from '../../components';
 
 export const Routes = () => {
   return (
     <Switch>
-      {/* <Route exact path="/" component={LoginPage} /> */}
+      <PrivateRoute exact path="/" component={HomePage} />
       <Route exact path="/login" component={LoginPage} />
       <Route exact path="/registration" component={RegistrationPage} />
       <PrivateRoute exact path="/students" component={StudentsPage} />
