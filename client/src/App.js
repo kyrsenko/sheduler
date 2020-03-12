@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import { ToastContainer } from 'react-toastify';
@@ -17,9 +17,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Navbar />
-        <Switch>
-          <Route component={Routes} />
-        </Switch>
+        <Route component={Routes} />
         <Preloader />
         <Notify />
         <ToastContainer
