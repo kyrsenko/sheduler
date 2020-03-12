@@ -22,7 +22,7 @@ export const Navbar = connect(mapStateToProps, { logoutUser })(
     const classes = useStyles();
     let history = useHistory();
     useEffect(() => {
-      user ? (document.title = user.name) : (document.title = 'Company name');
+      user ? (document.title = user.name) : (document.title = '');
     }, [user]);
     return isAuth || localStorage.token ? (
       <>
@@ -40,7 +40,7 @@ export const Navbar = connect(mapStateToProps, { logoutUser })(
               noWrap
               className={classes.toolbarTitle}
             >
-              {user ? user.name : 'Company name'}
+              {user ? user.name : null}
             </Typography>
             <nav className={classes.nav}>
               <Link
