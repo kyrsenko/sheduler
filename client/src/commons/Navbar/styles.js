@@ -15,7 +15,7 @@ export const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
   },
   toolbarTitle: {
-    flexGrow: 1,
+    // flexGrow: 1,
     '&:hover': {
       textDecoration: 'none',
     },
@@ -30,6 +30,6 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   nav: {
-    // margin: 'auto',
+    marginLeft: 'auto',
   },
 }));
