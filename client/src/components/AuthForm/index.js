@@ -27,7 +27,7 @@ export const AuthForm = ({
   let history = useHistory();
 
   useEffect(() => {
-    isAuth && history.push('/groups');
+    isAuth && history.push('/');
   }, [isAuth, history]);
 
   const { register, errors, handleSubmit } = useForm();

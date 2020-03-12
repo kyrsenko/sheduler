@@ -14,7 +14,7 @@ import { Details, Edit } from '../../components';
 export const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/" component={LoginPage} />
+      {/* <Route exact path="/" component={LoginPage} /> */}
       <Route exact path="/login" component={LoginPage} />
       <Route exact path="/registration" component={RegistrationPage} />
       <PrivateRoute exact path="/students" component={StudentsPage} />
