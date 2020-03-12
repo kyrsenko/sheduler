@@ -17,11 +17,11 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Navbar />
-        <Preloader />
-        <Notify />
         <Switch>
           <Route component={Routes} />
         </Switch>
+        <Preloader />
+        <Notify />
         <ToastContainer
           position="top-right"
           autoClose={5000}
