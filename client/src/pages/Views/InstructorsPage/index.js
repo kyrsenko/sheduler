@@ -1,22 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataTable } from '../../../components';
-import makeData from './makeData';
+import { connect } from 'react-redux';
+import { fetchAllInstructors } from './routines';
+import { instructorFields } from '../enums';
+import { week } from '../enums';
 
-export const InstructorsPage = props => {
-  const data = React.useMemo(() => makeData(100), []);
+const mapStateToProps = state => ({
+  instructors: state.instructorsReducer.instructors,
+  user: state.authReducer.user,
+});
 
-  const params = {
-    columns: [
-      { title: 'Full name', field: 'fullName' },
-      { title: 'Passport', field: 'passport' },
-      { title: 'Sertificate end date', field: 'sertificateEndDate' },
-      { title: 'Categories', field: 'categories' },
-      { title: 'Days off', field: 'daysOff' },
-    ],
-    data,
-    title: 'Instructors',
-    path: 'instructors',
-  };
+export const InstructorsPage = connect(mapStateToProps, {
+  fetchAllInstructors,
+})(({ instructors, fetchAllInstructors, user }) => {
+  const [data, setData] = useState([]);
 
-  return <DataTable {...params} />;
-};
+  useEffect(() => {
+    user && fetchAllInstructors({ user: { id: user._id } });
+  }, [user, fetchAllInstructors]);
+
+  useEffect(() => {
+    instructors &&
+      instructors.map(item => {
+        item.sertificateEndDate = new Date(
+          item.sertificateEndDate
+        ).toLocaleDateString();
+        item.categories = [...new Set(item.categories)].join(', ');
+        item.daysOff = [...new Set(item.daysOff)]
+          .map(item => week[item])
+          .join(', ');
+        return item;
+      }) &&
+      setData(instructors);
+  }, [instructors]);
+
+  return <DataTable {...instructorFields} data={data} />;
+});

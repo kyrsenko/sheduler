@@ -202,7 +202,9 @@ router.get('/', auth, async (req, res) => {
     if (!instructors.length) {
       return res
         .status(404)
-        .json({ errors: { msg: 'There are no instructors for this company' } });
+        .json({
+          errors: [{ msg: 'There are no instructors for this company' }],
+        });
     }
 
     res.json(instructors);
@@ -221,7 +223,7 @@ router.get('/:id', auth, async (req, res) => {
     const instructor = await Instructor.findOne({
       user: req.user.id,
       _id: req.params.id,
-    }).populate('user', ['name']);;
+    }).populate('user', ['name']);
 
     // Check for ObjectId format and instructor
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !instructor) {
