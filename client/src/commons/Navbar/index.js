@@ -5,7 +5,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { logoutUser } from '../routines';
 import store from '../../store';
@@ -42,7 +41,7 @@ export const Navbar = connect(mapStateToProps, { logoutUser })(
               noWrap
               className={classes.toolbarTitle}
             >
-              {user ? user.name : null}
+              {user ? user.name : ''}
             </Link>
             <nav className={classes.nav}>
               <Link

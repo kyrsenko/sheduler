@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { PrivateRoute } from '../PrivateRoute';
 import {
   StudentsPage,
@@ -8,14 +8,15 @@ import {
   CarsPage,
   LoginPage,
   RegistrationPage,
-  HomePage,
 } from '../../pages';
 import { Details, Edit } from '../../components';
 
 export const Routes = () => {
   return (
     <Switch>
-      <PrivateRoute exact path="/" component={HomePage} />
+      <Route exact path="/">
+        <Redirect to="/groups" /> 
+      </Route>
       <Route exact path="/login" component={LoginPage} />
       <Route exact path="/registration" component={RegistrationPage} />
       <PrivateRoute exact path="/students" component={StudentsPage} />
