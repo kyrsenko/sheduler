@@ -6,25 +6,22 @@ import { fetchAllCars } from './routines';
 
 const mapStateToProps = state => ({
   cars: state.carsReducer.cars,
-  user: state.authReducer.user,
 });
 
 export const CarsPage = connect(mapStateToProps, {
   fetchAllCars,
-})(({ cars, fetchAllCars, user }) => {
+})(({ cars, fetchAllCars }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    user && fetchAllCars({ user: { id: user._id } });
-  }, [user, fetchAllCars]);
+    !cars && fetchAllCars();
+  }, [fetchAllCars]);
 
   useEffect(() => {
     cars &&
       cars.map(item => {
-        item.techEndDate = new Date(
-          item.techEndDate
-        ).toLocaleDateString();
-        
+        item.techEndDate.length === 24 &&
+          (item.techEndDate = new Date(item.techEndDate).toLocaleDateString());
         return item;
       }) &&
       setData(cars);

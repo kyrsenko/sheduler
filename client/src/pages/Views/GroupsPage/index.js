@@ -10,21 +10,25 @@ const mapStateToProps = state => ({
 });
 
 export const GroupsPage = connect(mapStateToProps, { fetchAllGroups })(
-  ({ groups, fetchAllGroups, user }) => {
+  ({ groups, fetchAllGroups }) => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-      user && fetchAllGroups({ user: { id: user._id } });
-    }, [user, fetchAllGroups]);
+      !groups && fetchAllGroups();
+    }, [fetchAllGroups]);
 
     useEffect(() => {
       groups &&
         groups.map(item => {
-          item.students = item.students.length;
-          item.cars = item.cars.length;
-          item.instructors = item.instructors.length;
-          item.startDate = new Date(item.startDate).toLocaleDateString();
-          item.endDate = new Date(item.endDate).toLocaleDateString();
+          typeof item.students === 'object' &&
+            (item.students = item.students.length);
+          typeof item.cars === 'object' && (item.cars = item.cars.length);
+          typeof item.instructors === 'object' &&
+            (item.instructors = item.instructors.length);
+          item.startDate.length === 24 &&
+            (item.startDate = new Date(item.startDate).toLocaleDateString());
+          item.endDate.length === 24 &&
+            (item.endDate = new Date(item.endDate).toLocaleDateString());
           return item;
         }) &&
         setData(groups);

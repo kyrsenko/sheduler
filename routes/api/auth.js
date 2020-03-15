@@ -17,7 +17,7 @@ router.get('/', auth, async (req, res) => {
     await res.json(user);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 });
 
@@ -72,7 +72,7 @@ router.post(
       );
     } catch (error) {
       console.error(error.message);
-      res.status(500).send('Server error');
+      res.status(500).json({ errors: [{ msg: 'Server Error' }] });
     }
   }
 );

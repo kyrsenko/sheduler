@@ -7,28 +7,30 @@ import { week } from '../enums';
 
 const mapStateToProps = state => ({
   instructors: state.instructorsReducer.instructors,
-  user: state.authReducer.user,
 });
 
 export const InstructorsPage = connect(mapStateToProps, {
   fetchAllInstructors,
-})(({ instructors, fetchAllInstructors, user }) => {
+})(({ instructors, fetchAllInstructors }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    user && fetchAllInstructors({ user: { id: user._id } });
-  }, [user, fetchAllInstructors]);
+    !instructors && fetchAllInstructors();
+  }, [fetchAllInstructors]);
 
   useEffect(() => {
     instructors &&
       instructors.map(item => {
-        item.sertificateEndDate = new Date(
-          item.sertificateEndDate
-        ).toLocaleDateString();
-        item.categories = [...new Set(item.categories)].join(', ');
-        item.daysOff = [...new Set(item.daysOff)]
-          .map(item => week[item])
-          .join(', ');
+        item.sertificateEndDate.length === 24 &&
+          (item.sertificateEndDate = new Date(
+            item.sertificateEndDate
+          ).toLocaleDateString());
+        typeof item.categories === 'object' &&
+          (item.categories = [...new Set(item.categories)].join(', '));
+        typeof item.daysOff === 'object' &&
+          (item.daysOff = [...new Set(item.daysOff)]
+            .map(item => week[item])
+            .join(', '));
         return item;
       }) &&
       setData(instructors);

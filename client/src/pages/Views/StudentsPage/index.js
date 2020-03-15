@@ -6,21 +6,23 @@ import { fetchAllStudents } from './routines';
 
 const mapStateToProps = state => ({
   students: state.studentsReducer.students,
-  user: state.authReducer.user,
 });
 
 export const StudentsPage = connect(mapStateToProps, { fetchAllStudents })(
-  ({ students, fetchAllStudents, user }) => {
+  ({ students, fetchAllStudents }) => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-      user && fetchAllStudents({ user: { id: user._id } });
-    }, [user, fetchAllStudents]);
+      !students && fetchAllStudents();
+    }, [fetchAllStudents]);
 
     useEffect(() => {
       students &&
         students.map(item => {
-          item.dateOfBirth = new Date(item.dateOfBirth).toLocaleDateString();
+          item.dateOfBirth.length === 24 &&
+            (item.dateOfBirth = new Date(
+              item.dateOfBirth
+            ).toLocaleDateString());
           return item;
         }) &&
         setData(students);

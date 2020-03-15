@@ -20,7 +20,7 @@ router.post(
     check(
       'password',
       'Please enter a password with 6 or more characters'
-    ).isLength({ min: 6 })
+    ).isLength({ min: 6 }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -43,7 +43,7 @@ router.post(
         name,
         email,
         password,
-        role
+        role,
       });
 
       const salt = await bcrypt.genSalt(10);
@@ -54,8 +54,8 @@ router.post(
 
       const payload = {
         user: {
-          id: user.id
-        }
+          id: user.id,
+        },
       };
 
       jwt.sign(
@@ -69,7 +69,7 @@ router.post(
       );
     } catch (error) {
       console.error(error.message);
-      res.status(500).send('Server error');
+      res.status(500).json({ errors: [{ msg: 'Server Error' }] });
     }
   }
 );

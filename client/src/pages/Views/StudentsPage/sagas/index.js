@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { put, all, takeEvery } from 'redux-saga/effects';
+import { setAuthToken } from '../../../../utils';
+
 import {
   fetchAllStudents,
   fetchStudentById,
@@ -9,10 +11,13 @@ import {
 } from '../routines';
 import { loadData, requestErrorData } from '../../../../commons/routines';
 
-function* fetchAllStudentsSaga({ payload }) {
+function* fetchAllStudentsSaga() {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
   try {
     yield put(loadData.request());
-    const response = yield axios.get('/api/students', payload);
+    const response = yield axios.get('/api/students');
     yield put(fetchAllStudents.success(response.data));
   } catch (error) {
     const errors = error.response.data.errors;
