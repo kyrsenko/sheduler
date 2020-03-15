@@ -86,7 +86,7 @@ router.post(
           .json({ errors: { msg: 'License plate number already used' } });
       }
 
-      res.status(500).json('Server error');
+      res.status(500).json({ errors: [{ msg: 'Server Error' }] });
     }
   }
 );
@@ -167,7 +167,7 @@ router.put(
       res.json(car);
     } catch (error) {
       console.error(error.message);
-      res.status(500).json('Server error');
+      res.status(500).json({ errors: [{ msg: 'Server Error' }] });
     }
   }
 );
@@ -184,14 +184,14 @@ router.get('/', auth, async (req, res) => {
 
     if (!cars.length) {
       return res
-        .status(400)
+        .status(404)
         .json({ errors: [{ msg: 'There are no cars for this company' }] });
     }
 
     res.json(cars);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 });
 
@@ -214,7 +214,7 @@ router.get('/:id', auth, async (req, res) => {
     res.json(car);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 });
 
@@ -235,7 +235,7 @@ router.delete('/:id', auth, async (req, res) => {
     res.json({ msg: 'Car removed' });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 });
 

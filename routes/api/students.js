@@ -89,7 +89,7 @@ router.post(
       res.json(student);
     } catch (error) {
       console.error(error.message);
-      res.status(500).json('Server error');
+      res.status(500).json({ errors: [{ msg: 'Server Error' }] });
     }
   }
 );
@@ -163,7 +163,7 @@ router.put(
         return res.status(404).json({ msg: 'Student not found' });
       }
 
-      res.status(500).json('Server error');
+      res.status(500).json({ errors: [{ msg: 'Server Error' }] });
     }
   }
 );
@@ -187,7 +187,7 @@ router.get('/', auth, async (req, res) => {
     res.json(students);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 });
 
@@ -213,7 +213,7 @@ router.get('/:id', auth, async (req, res) => {
     if (error.kind === 'ObjectId') {
       return res.status(404).json({ msg: 'Student not found' });
     }
-    res.status(500).send('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 });
 
@@ -240,7 +240,7 @@ router.delete('/:id', auth, async (req, res) => {
     if (error.kind === 'ObjectId') {
       return res.status(404).json({ msg: 'Student not found' });
     }
-    res.status(500).send('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 });
 

@@ -87,7 +87,7 @@ router.post(
       res.json(instructor);
     } catch (error) {
       console.error(error.message);
-      res.status(500).json('Server error');
+      res.status(500).json({ errors: [{ msg: 'Server Error' }] });
     }
   }
 );
@@ -184,7 +184,7 @@ router.put(
           .json({ errors: { msg: 'Instructor not found' } });
       }
 
-      res.status(500).json('Server error');
+      res.status(500).json({ errors: [{ msg: 'Server Error' }] });
     }
   }
 );
@@ -200,17 +200,15 @@ router.get('/', auth, async (req, res) => {
     }).populate('user', ['name']);
 
     if (!instructors.length) {
-      return res
-        .status(404)
-        .json({
-          errors: [{ msg: 'There are no instructors for this company' }],
-        });
+      return res.status(404).json({
+        errors: [{ msg: 'There are no instructors for this company' }],
+      });
     }
 
     res.json(instructors);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 });
 
@@ -233,7 +231,7 @@ router.get('/:id', auth, async (req, res) => {
     res.json(instructor);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 });
 
@@ -257,7 +255,7 @@ router.delete('/:id', auth, async (req, res) => {
     res.json({ msg: 'Instructor removed' });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ errors: [{ msg: 'Server Error' }] });
   }
 });
 
