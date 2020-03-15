@@ -65,7 +65,9 @@ router.post(
       });
 
       if (car) {
-        return res.status(400).json({ msg: 'Car already exists' });
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Car already exists' }] });
       }
 
       car = new Car({
@@ -148,7 +150,7 @@ router.put(
       });
 
       if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !car) {
-        return res.status(404).json({ msg: 'Car not found' });
+        return res.status(404).json({ errors: [{ msg: 'Car not found' }] });
       }
 
       car = await Car.findOneAndUpdate(
@@ -183,7 +185,7 @@ router.get('/', auth, async (req, res) => {
     if (!cars.length) {
       return res
         .status(400)
-        .json({ errors: { msg: 'There are no cars for this company' } });
+        .json({ errors: [{ msg: 'There are no cars for this company' }] });
     }
 
     res.json(cars);
@@ -206,7 +208,7 @@ router.get('/:id', auth, async (req, res) => {
 
     // Check for ObjectId format and car
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !car) {
-      return res.status(404).json({ msg: 'Car not found' });
+      return res.status(404).json({ errors: [{ msg: 'Car not found' }] });
     }
 
     res.json(car);
@@ -226,7 +228,7 @@ router.delete('/:id', auth, async (req, res) => {
 
     // Check for ObjectId format and car
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !car) {
-      return res.status(404).json({ msg: 'Car not found' });
+      return res.status(404).json({ errors: [{ msg: 'Car not found' }] });
     }
 
     await car.remove();

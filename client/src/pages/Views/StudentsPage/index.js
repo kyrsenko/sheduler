@@ -1,24 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataTable } from '../../../components';
-import makeData from './makeData';
+import { connect } from 'react-redux';
+import { studentFields } from '../enums';
+import { fetchAllStudents } from './routines';
 
-export const StudentsPage = props => {
-  const data = React.useMemo(() => makeData(200), []);
+const mapStateToProps = state => ({
+  students: state.studentsReducer.students,
+  user: state.authReducer.user,
+});
 
-  const params = {
-    columns: [
-      { title: 'Full name', field: 'fullName' },
-      { title: 'Passport', field: 'passport' },
-      { title: 'Date of birth', field: 'dateOfBirth', type: 'string' },
-      {
-        title: 'Group',
-        field: 'group',
-      },
-    ],
-    data,
-    title: 'Students',
-    path: 'students',
-  };
+export const StudentsPage = connect(mapStateToProps, { fetchAllStudents })(
+  ({ students, fetchAllStudents, user }) => {
+    const [data, setData] = useState([]);
 
-  return <DataTable {...params} />;
-};
+    useEffect(() => {
+      user && fetchAllStudents({ user: { id: user._id } });
+    }, [user, fetchAllStudents]);
+
+    useEffect(() => {
+      students &&
+        students.map(item => {
+          item.dateOfBirth = new Date(item.dateOfBirth).toLocaleDateString();
+          return item;
+        }) &&
+        setData(students);
+    }, [students]);
+
+    return <DataTable {...studentFields} data={data} />;
+  }
+);

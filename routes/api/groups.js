@@ -160,7 +160,7 @@ router.get('/', auth, async (req, res) => {
     if (!groups.length) {
       return res
         .status(404)
-        .json({ errors: { msg: 'There are no groups for this company' } });
+        .json({ errors: [{ msg: 'There are no groups for this company' }] });
     }
 
     res.json(groups);

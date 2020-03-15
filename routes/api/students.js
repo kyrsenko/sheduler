@@ -181,7 +181,7 @@ router.get('/', auth, async (req, res) => {
     if (!students.length) {
       return res
         .status(404)
-        .json({ errors: { msg: 'There are no students for this company' } });
+        .json({ errors: [{ msg: 'There are no students for this company' }] });
     }
 
     res.json(students);
