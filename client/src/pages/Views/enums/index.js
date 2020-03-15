@@ -51,6 +51,7 @@ export const carFields = {
     { title: 'Active', field: 'active' },
   ],
   title: 'Cars',
+  path: 'cars',
 };
 
 export const week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
