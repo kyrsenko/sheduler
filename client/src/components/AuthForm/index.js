@@ -123,7 +123,6 @@ export const AuthForm = ({
             <Grid item>
               <Link
                 component={NavLink}
-                href="#"
                 to={`/${linkTo}`}
                 className={classes.link}
               >

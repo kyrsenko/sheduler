@@ -75,7 +75,7 @@ export const DataTable = ({ path, columns, data, title, actions = {} }) => {
       />
       <Tooltip title="Add" aria-label="add">
         <Fab
-          color="main"
+          color="default"
           className={classes.absolute}
           onClick={() => {
             history.push(`/${path}/create`);
