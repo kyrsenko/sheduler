@@ -5,3 +5,6 @@ export { GroupsPage } from './Views/GroupsPage';
 export { InstructorsPage } from './Views/InstructorsPage';
 export { CarsPage } from './Views/CarsPage';
 export { StudentCreatePage } from './Views/StudentsPage/StudentCreatePage';
+export { InstructorCreatePage } from './Views/InstructorsPage/InstructorCreatePage';
+export { GroupCreatePage } from './Views/GroupsPage/GroupCreatePage';
+export { CarCreatePage } from './Views/CarsPage/CarCreatePage';
