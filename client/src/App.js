@@ -6,8 +6,10 @@ import { ToastContainer } from 'react-toastify';
 import { Navbar, Preloader, Notify } from './commons';
 import { fetchAuthUser } from './pages/Auth/routines';
 import { Routes } from './routing/Routes';
+import { setAuthToken } from './utils/index';
 
 const App = () => {
+  setAuthToken(localStorage.token);
   useEffect(() => {
     if (localStorage.token) {
       store.dispatch(fetchAuthUser());

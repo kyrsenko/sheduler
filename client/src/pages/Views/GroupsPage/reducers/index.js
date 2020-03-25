@@ -16,6 +16,16 @@ const initialState = {
 export function groupsReducer(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case fetchAllGroups.REQUEST:
+      return {
+        ...state,
+        groups: null,
+      };
+    case fetchGroupById.REQUEST:
+      return {
+        ...state,
+        group: null,
+      };
     case fetchAllGroups.SUCCESS:
       return {
         ...state,

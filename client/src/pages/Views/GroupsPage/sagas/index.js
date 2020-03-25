@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { put, all, takeEvery } from 'redux-saga/effects';
-import { setAuthToken } from '../../../../utils';
 
 import {
   fetchAllGroups,
@@ -12,11 +11,9 @@ import {
 import { loadData, requestErrorData } from '../../../../commons/routines';
 
 function* fetchAllGroupsSaga() {
-  if (localStorage.token) {
-    setAuthToken(localStorage.token);
-  }
   try {
     yield put(loadData.request());
+    yield put(fetchAllGroups.request());
     const response = yield axios.get('/api/groups');
     yield put(fetchAllGroups.success(response.data));
   } catch (error) {
@@ -31,8 +28,9 @@ function* fetchAllGroupsSaga() {
 function* fetchGroupByIdSaga({ payload }) {
   try {
     yield put(loadData.request());
-    const { id, user } = payload;
-    const response = yield axios.get(`/api/groups/${id}`, user);
+    yield put(fetchGroupById.request());
+    const { id } = payload;
+    const response = yield axios.get(`/api/groups/${id}`);
     yield put(fetchGroupById.success(response.data));
   } catch (error) {
     const errors = error.response.data.errors;

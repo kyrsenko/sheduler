@@ -16,6 +16,16 @@ const initialState = {
 export function instructorsReducer(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case fetchAllInstructors.REQUEST:
+      return {
+        ...state,
+        instructors: null,
+      };
+    case fetchInstructorById.REQUEST:
+      return {
+        ...state,
+        instructor: null,
+      };
     case fetchAllInstructors.SUCCESS:
       return {
         ...state,

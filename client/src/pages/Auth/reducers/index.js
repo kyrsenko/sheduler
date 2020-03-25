@@ -23,6 +23,7 @@ export function authReducer(state = initialState, action) {
     case createUser.FAILURE:
     case logoutUser.TRIGGER:
       localStorage.removeItem('token');
+      localStorage.removeItem('tokenExpiration');
       return {
         ...state,
         isAuth: false,

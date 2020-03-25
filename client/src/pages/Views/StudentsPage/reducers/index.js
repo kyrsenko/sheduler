@@ -16,6 +16,16 @@ const initialState = {
 export function studentsReducer(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case fetchAllStudents.REQUEST:
+      return {
+        ...state,
+        students: null,
+      };
+    case fetchStudentById.REQUEST:
+      return {
+        ...state,
+        student: null,
+      };
     case fetchAllStudents.SUCCESS:
       return {
         ...state,

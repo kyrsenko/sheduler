@@ -16,6 +16,16 @@ const initialState = {
 export function carsReducer(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case fetchAllCars.REQUEST:
+      return {
+        ...state,
+        cars: null,
+      };
+    case fetchCarById.REQUEST:
+      return {
+        ...state,
+        car: null,
+      };
     case fetchAllCars.SUCCESS:
       return {
         ...state,

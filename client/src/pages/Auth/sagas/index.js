@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { put, all, takeEvery } from 'redux-saga/effects';
-import { setAuthToken } from '../../../utils';
 import { authUser, fetchAuthUser, createUser } from '../routines';
 import { loadData, requestErrorData } from '../../../commons/routines';
 
@@ -8,8 +7,12 @@ function* authUserSaga({ payload }) {
   try {
     yield put(loadData.request());
     const response = yield axios.post('/api/auth', payload);
-    const { token } = response.data;
+    const { token, tokenExpiration } = response.data;
     localStorage.setItem('token', token);
+    localStorage.setItem(
+      'tokenExpiration',
+      tokenExpiration * 1000 + Date.now()
+    );
 
     yield put(authUser.success({ token }));
     yield put(fetchAuthUser());
@@ -23,9 +26,7 @@ function* authUserSaga({ payload }) {
 }
 
 function* fetchAuthUserSaga() {
-  if (localStorage.token) {
-    setAuthToken(localStorage.token);
-  }
+ 
   try {
     yield put(loadData.request());
     const response = yield axios.get('/api/auth');
